@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Item</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Add New Item</h2>
+    <form id="registerForm">
+        <input type="hidden" name="action" value="register">
+        <div>
+            <label>Category:</label>
+            <input type="text" name="category" required>
+        </div>
+        <div>
+            <label>Name:</label>
+            <input type="text" name="name" required>
+        </div>
+        <div>
+            <label>Brand Name:</label>
+            <input type="text" name="brandName" required>
+        </div>
+        <div>
+            <label>Price:</label>
+            <input type="number" name="price" required>
+        </div>
+        
+        <button type="submit">Add</button>
+    </form>
+    <p id="message"></p>
+
+    <script>
+        const baseUrl = window.location.pathname.includes('ElectroMartSystem') ? '/ElectroMartSystem' : '';
+        const itemsUrl = `${baseUrl}/items`;
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            fetch(itemsUrl, {
+                method: 'POST',
+                body: new URLSearchParams(formData), // Convert FormData to URL-encoded string
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded' // Set correct content type
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const message = document.getElementById('message');
+                if (data.error) {
+                    message.style.color = 'red';
+                    message.textContent = data.error === 'Invalid action' ? 'Invalid' : data.error;
+                } else {
+                    message.style.color = 'green';
+                    message.textContent = data.message;
+                    this.reset();
+                    setTimeout(() => window.location.href = 'displayItem.html', 1000);
+                }
+            })
+            .catch(error => {
+                document.getElementById('message').textContent = 'Error: ' + error.message;
+            });
+        });
+    </script>
+</body>
+</html>

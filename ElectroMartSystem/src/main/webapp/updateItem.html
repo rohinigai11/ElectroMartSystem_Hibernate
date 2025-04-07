@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Item</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Update Item</h2>
+    <form id="updateForm">
+        <input type="hidden" name="action" value="update">
+        <input type="hidden" name="itemId" id="itemId">
+        <div>
+            <label>Category:</label>
+            <input type="text" name="category" id="category" required>
+        </div>
+        <div>
+            <label>Name:</label>
+            <input type="text" name="name" id="name" required>
+        </div>
+        <div>
+            <label>Brand Name:</label>
+            <input type="text" name="brandName" id="brandName" required>
+        </div>
+        <div>
+            <label>Price:</label>
+            <input type="tel" name="price" id="price" required>
+        </div>
+        
+        <button type="submit">Update</button>
+    </form>
+    <p id="message"></p>
+
+    <script>
+        const baseUrl = window.location.pathname.includes('ElectroMartSystem') ? '/ElectroMartSystem' : '';
+        const itemsUrl = `${baseUrl}/items`;
+        const urlParams = new URLSearchParams(window.location.search);
+        const itemId = urlParams.get('id');
+
+        fetch(`${itemsUrl}/edit/${itemId}`)
+            .then(response => response.json())
+            .then(item => {
+                if (item.error) {
+                    document.getElementById('message').textContent = item.error;
+                } else {
+                    document.getElementById('itemId').value = item.itemId;
+                    document.getElementById('category').value = item.category;
+                    document.getElementById('name').value = item.name;
+                    document.getElementById('brandName').value = item.brandName;
+                    document.getElementById('price').value = item.price;
+                }
+            })
+            .catch(error => {
+                document.getElementById('message').textContent = 'Error loading item: ' + error.message;
+            });
+
+        document.getElementById('updateForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            fetch(itemsUrl, {
+                method: 'POST',
+                body: new URLSearchParams(formData), // Convert FormData to URL-encoded string
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded' // Set correct content type
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const message = document.getElementById('message');
+                if (data.error) {
+                    message.style.color = 'red';
+                    message.textContent = data.error === 'Invalid action' ? 'Invalid' : data.error;
+                } else {
+                    message.style.color = 'green';
+                    message.textContent = data.message;
+                    setTimeout(() => window.location.href = 'displayItem.html', 1000);
+                }
+            })
+            .catch(error => {
+                document.getElementById('message').textContent = 'Error: ' + error.message;
+            });
+        });
+    </script>
+</body>
+</html>
