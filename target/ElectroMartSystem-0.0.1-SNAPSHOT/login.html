@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+
+<script>
+
+function validateLogin(){
+	const email = document.querySelector(`#loginForm input[name="email"]`).value;
+	const password = document.querySelector(`#loginForm input[name="password"]`).value;
+	if(email.includes('@') || !email.includes('.')){
+		alert("Enter valid email");
+		return false;
+	}
+	
+	if(password.length < 6){
+		alert("Password must be at least 6 char long");
+		return false;
+	}
+}
+</script>
+</head>
+<body>
+
+
+<form id="loginForm" action="login" method="post" onsubmit="validateLogin()">
+<h1>Login</h1>
+<input type="email" name="email" placeholder="Enter Email" required/> <br>
+<input type="password" name="password" placeholder="Enter Password" required> <br>
+<button type="submit"> Login </button><br>
+<p> Don't have account <a href="Signup.html">Sign Up</a></p>
+
+</form>
+</body>
+</html>

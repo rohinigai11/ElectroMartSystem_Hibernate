@@ -1,0 +1,34 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- Database connection settings -->
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property> 
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/electromart_db</property> 
+        <property name="hibernate.connection.username">postgres</property> 
+        <property name="hibernate.connection.password">123</property> 
+
+        <!-- Hibernate dialect -->
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property> 
+
+        <!-- Schema management -->
+        <property name="hibernate.hbm2ddl.auto">update</property> 
+        
+
+        <!-- Enable SQL query logging -->
+        <property name="hibernate.show_sql">true</property> <!-- Prints generated SQL queries in the console -->
+
+        <!-- Transaction management -->
+        <property name="hibernate.current_session_context_class">thread</property> 
+        <!-- `thread`: Each thread gets its own Hibernate session. Useful for multi-threaded apps. -->
+
+        <property name="hibernate.connection.autocommit">true</property> 
+        
+
+        <!-- Mapping entity classes -->
+        <mapping class="model.Item"/> 
+		<mapping class="model.User"/>
+    </session-factory>
+</hibernate-configuration>
+
