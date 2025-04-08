@@ -79,13 +79,7 @@ public class ItemServlet extends HttpServlet {
         try {
             if ("register".equals(action)) {
                 Item it = new Item(
-//                    req.getParameter("firstName"),
-//                    req.getParameter("lastName"),
-//                    req.getParameter("email"),
-//                    req.getParameter("mobileNumber"),
-//                    Double.parseDouble(req.getParameter("salary")),
-//                    req.getParameter("department")
-                		
+
                 		req.getParameter("category"),
                 		req.getParameter("name"),
                 		req.getParameter("brandName"),
@@ -96,12 +90,7 @@ public class ItemServlet extends HttpServlet {
             } else if ("update".equals(action)) {
                 Item it = itemDAO.getItem(Integer.parseInt(req.getParameter("itemId")));
                 if (it != null) {
-//                    emp.setFirstName(req.getParameter("firstName"));
-//                    emp.setLastName(req.getParameter("lastName"));
-//                    emp.setEmail(req.getParameter("email"));
-//                    emp.setMobileNumber(req.getParameter("mobileNumber"));
-//                    emp.setSalary(Double.parseDouble(req.getParameter("salary")));
-//                    emp.setDepartment(req.getParameter("department"));
+
                 	
                 	it.setCategory(req.getParameter("category"));
                 	it.setName(req.getParameter("name"));

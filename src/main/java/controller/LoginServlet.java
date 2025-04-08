@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
             if (user != null && PasswordUtil.checkPassword(password, user.getPassword())) {
                 HttpSession httpSession = req.getSession();
                 httpSession.setAttribute("user", user);
-//                resp.sendRedirect("welcome");
+
                 resp.sendRedirect("displayItem.html");
             } else {
                 resp.sendRedirect("login.html?error=invalid");

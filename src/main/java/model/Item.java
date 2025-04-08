@@ -20,14 +20,9 @@ public class Item {
     @Column(name = "brandName", nullable = false)
     private String brandName;
 
-//    @Column(name = "mobile_number", nullable = false, unique = true)
-//    private String mobileNumber;
-
     @Column(name = "price", nullable = false)
     private double price;
 
-//    @Column(name = "department", nullable = false)
-//    private String department;
 
     // Default constructor
     public Item() {}
@@ -37,9 +32,8 @@ public class Item {
         this.category = category;
         this.name = name;
         this.brandName = brandName;
-//        this.mobileNumber = mobileNumber;
         this.price = price;
-//        this.department = department;
+
     }
 
     // Getters and Setters
@@ -51,12 +45,7 @@ public class Item {
     public void setName(String name) { this.name = name; }
     public String getBrandName() { return brandName; }
     public void setBrandName(String brandName) { this.brandName = brandName; }
-//    public String getMobileNumber() { return mobileNumber; }
-//    public void setMobileNumber(String mobileNumber) { this.mobileNumber = mobileNumber; }
     public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }
-//    public String getDepartment() { return department; }
-//    public void setDepartment(String department) { this.department = department; }
-    
     
 }
